@@ -10,7 +10,61 @@
     <script defer src="js/main.js"></script>
     <script defer src="js/vue.js"></script>
 </head>
-<body>
+<body id="app">
+    <header>
 
+    </header>
+    <input type="text" v-model="cerrentNote" class="input" @keyup.enter="addNote">
+    <main>
+        <div class="all_columns">
+            <div class="column column1">
+                <h4 class="column-title">Title</h4>
+                <ul class="list" v-for="note in notes">
+                    <li class="cart">
+                        <button>=></button>
+                        <button>x</button>
+
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="column column2">
+                <h4 class="column-title">Title</h4>
+                <ul class="list" v-for="note in notes">
+                    <li class="cart">
+                        <button>=></button>
+                        <button>x</button>
+
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="column column3">
+                <h4 class="column-title">Title</h4>
+                <ul class="list" v-for="note in notes">
+                    <li class="cart">
+                        <button>=></button>
+                        <button>x</button>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="column column4">
+                <h4 class="column-title">Title</h4>
+                <ul class="list" v-for="note in notes">
+                    <li class="cart">
+                        <button>=></button>
+                        <button>x</button>
+
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </main>
 </body>
 </html>
