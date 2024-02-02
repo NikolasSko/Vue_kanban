@@ -8,6 +8,14 @@ a{
     text-decoration: none;
 }
 
+body{
+    background-image: url("../assets/bg.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+
 .title{
     text-align: center;
     margin-bottom: 30px;
@@ -16,7 +24,7 @@ a{
 .input{
     display: flex;
     margin: 0 auto;
-    margin-bottom: 30px;
+    margin-bottom: 40px;
 }
 
 .all_columns{
@@ -26,13 +34,22 @@ a{
 }
 
 .column{
-    width: 400px;
-    background-color: grey;
+    margin: 0 auto;
+    width: 350px;
+    background-color: bisque;
     min-height: 700px;
     text-align: center;
-
+    opacity: .7;
+    border-radius: 4%;
 }
 
 .cart{
+    margin: 0 auto;
+    background-color: white;
+    border: 1px solid black;
+    width: 300px;
+    height: 70px;
     list-style-type: none;
+    margin-top: 10px;
+    opacity: .90;
 }
