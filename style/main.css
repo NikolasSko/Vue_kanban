@@ -8,3 +8,31 @@ a{
     text-decoration: none;
 }
 
+.title{
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.input{
+    display: flex;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.all_columns{
+    display: flex;
+    flex-direction: row;
+    gap: 100px;
+}
+
+.column{
+    width: 400px;
+    background-color: grey;
+    min-height: 700px;
+    text-align: center;
+
+}
+
+.cart{
+    list-style-type: none;
+}
