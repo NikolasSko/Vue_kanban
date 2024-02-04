@@ -1,33 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Kanban</title>
     <link rel="stylesheet" href="style/main.css">
-    <script defer src="js/vue.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <script defer src="js/main.js"></script>
-
 </head>
 <body>
 <div id="app">
     <header>
-        <h1 class="title">Канбан доска</h1>
+        <h1 class="title">Kanban-board</h1>
     </header>
-    <input class="input" type="text" v-model="currentNote"  @keyup.enter="addNote">
+    <div class="inputs">
+        <input placeholder="title" class="input" type="text" v-model="currentNote.title" @keyup.enter="addNote">
+        <input placeholder="description" class="input" type="text" v-model="currentNote.description" @keyup.enter="addNote">
+        <input class="input" type="datetime-local" v-model="currentNote.deadline" placeholder="Deadline" @keyup.enter="addNote">
+        <button v-if="editingIndex === -1" @click="addNote">Добавить</button>
+        <button v-if="editingIndex !== -1" @click="saveEdit">Сохранить</button>
+        <button v-if="editingIndex !== -1" @click="cancelEdit">Отмена</button>
+    </div>  
     <main>
         <div class="all_columns">
             <div class="column column1">
                 <h4 class="column-title">Planned</h4>
                 <ul class="list" v-for="note in notes">
                     <li class="cart" v-if="note.isPlanned === true">
-                        <p>{{note.text}}</p>
+                        <p>{{note.title}} {{note.creationDate}}</p>
+                        <p>{{note.description}}</p>
+                        <p>Дедлайн: {{note.deadline}}</p>
                         <button @click="(note.isProcess = true) && (note.isPlanned = false)">=></button>
-                        <button @click="deleteNote(note.text)">x</button>
+                        <button @click="deleteNote(note.title)">x</button>
+                        <button @click="editNote(note)">Редактировать</button>
                     </li>
-
                 </ul>
             </div>
 
@@ -35,13 +42,14 @@
                 <h4 class="column-title">In process</h4>
                 <ul class="list" v-for="note in notes">
                     <li class="cart" v-if="note.isProcess === true">
-                        <p>{{note.text}}</p>
+                        <p>{{note.title}} {{note.creationDate}}</p>
+                        <p>{{note.description}}</p>
+                        <p>Дедлайн: {{note.deadline}}</p>
                         <button @click="(note.isPlanned = true) && (note.isProcess = false)"><=</button>
                         <button @click="(note.isTested = true) && (note.isProcess = false)">=></button>
-                        <button @click="deleteNote(note.text)">x</button>
-
+                        <button @click="deleteNote(note.title)">x</button>
+                        <button @click="editNote(note)">Редактировать</button>
                     </li>
-
                 </ul>
             </div>
 
@@ -49,28 +57,27 @@
                 <h4 class="column-title">Testing</h4>
                 <ul class="list" v-for="note in notes">
                     <li class="cart" v-if="note.isTested === true">
-                        <p>{{note.text}}</p>
+                        <p>{{note.title}} {{note.creationDate}}</p>
+                        <p>{{note.description}}</p>
+                        <p>Дедлайн: {{note.deadline}}</p>
                         <button @click="(note.isProcess = true) && (note.isTested = false)"><=</button>
                         <button @click="(note.isDone = true) && (note.isTested = false)">=></button>
-                        <button @click="deleteNote(note.text)">x</button>
+                        <button @click="deleteNote(note.title)">x</button>
+                        <button @click="editNote(note)">Редактировать</button>
                     </li>
-
                 </ul>
             </div>
 
             <div class="column column4">
                 <h4 class="column-title">Done</h4>
                 <ul class="list" v-for="note in notes">
-                    <li class="cart" v-if="note.isDone === true">
-                        <p>{{note.text}}</p>
-                        <button @click="(note.isTested = true) && (note.isDone = false)"><=</button>
-                        <button @click="deleteNote(note.text)">x</button>
-
+                    <li class="cart" v-if="note.isDone === true" disabled>
+                        <p>{{note.title}} {{note.creationDate}}</p>
+                        <p>{{note.description}}</p>
+                        <p>Дедлайн: {{note.deadline}}</p>
                     </li>
-
                 </ul>
             </div>
-
         </div>
     </main>
 </div>

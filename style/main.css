@@ -22,9 +22,7 @@ body{
 }
 
 .input{
-    display: flex;
-    margin: 0 auto;
-    margin-bottom: 40px;
+
 }
 
 .all_columns{
@@ -39,17 +37,25 @@ body{
     background-color: bisque;
     min-height: 700px;
     text-align: center;
-    opacity: .7;
     border-radius: 4%;
 }
 
 .cart{
     margin: 0 auto;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     border: 1px solid black;
     width: 300px;
-    height: 70px;
+    height: 110px;
     list-style-type: none;
     margin-top: 10px;
     opacity: .90;
+    border-radius: 10%;
+}
+
+.inputs{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 40px;
+
 }
