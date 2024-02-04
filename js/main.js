@@ -4,13 +4,14 @@ let app = new Vue({
         currentNote: {
             title: "",
             creationDate: "",
-            lastEditDate: "", // Добавлено поле для временного штампа редактирования
+            lastEditDate: "",
             description: "",
             deadline: "",
             isPlanned: true,
             isProcess: false,
             isTested: false,
             isDone: false,
+            isDeadlineExpired: false, // Добавлено поле для отслеживания просроченного дедлайна
         },
         editingIndex: -1,
         notes: [],
@@ -21,23 +22,39 @@ let app = new Vue({
             let formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')} ${currentDate.getHours().toString().padStart(2, '0')}:${currentDate.getMinutes().toString().padStart(2, '0')}:${currentDate.getSeconds().toString().padStart(2, '0')}`;
 
             if (this.editingIndex === -1) {
+                let isDeadlineExpired = false;
+
+                // Проверка просроченного дедлайна при перемещении в столбец "Done"
+                if (this.currentNote.isDone && new Date(this.currentNote.deadline) < new Date()) {
+                    isDeadlineExpired = true;
+                }
+
                 this.notes.push({
                     title: this.currentNote.title,
                     creationDate: formattedDate,
-                    lastEditDate: "", // Пустое значение при создании
+                    lastEditDate: "",
                     description: this.currentNote.description,
                     deadline: this.currentNote.deadline,
-                    isPlanned: true,
-                    isProcess: false,
-                    isTested: false,
-                    isDone: false,
+                    isPlanned: this.currentNote.isPlanned,
+                    isProcess: this.currentNote.isProcess,
+                    isTested: this.currentNote.isTested,
+                    isDone: this.currentNote.isDone,
+                    isDeadlineExpired: isDeadlineExpired,
                 });
             } else {
                 let editedNote = this.notes[this.editingIndex];
                 editedNote.title = this.currentNote.title;
                 editedNote.description = this.currentNote.description;
                 editedNote.deadline = this.currentNote.deadline;
-                editedNote.lastEditDate = formattedDate; // Обновление временного штампа при редактировании
+                editedNote.isDone = this.currentNote.isDone;
+
+                // Обновление статуса просроченного дедлайна при редактировании
+                if (editedNote.isDone && new Date(editedNote.deadline) < currentDate) {
+                    editedNote.isDeadlineExpired = true;
+                } else {
+                    editedNote.isDeadlineExpired = false;
+                }
+
                 this.editingIndex = -1;
             }
 
@@ -85,6 +102,7 @@ let app = new Vue({
                 isProcess: false,
                 isTested: false,
                 isDone: false,
+                isDeadlineExpired: false,
             };
         }
     }

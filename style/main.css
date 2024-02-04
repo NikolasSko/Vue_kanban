@@ -59,3 +59,15 @@ body{
     gap: 40px;
 
 }
+
+.deadline{
+    color: rgb(54, 54, 54);
+}
+
+.expired-deadline {
+    background-color: red;
+}
+
+.on-time-deadline {
+    background-color: green;
+}
