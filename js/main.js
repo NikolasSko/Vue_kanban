@@ -4,6 +4,7 @@ let app = new Vue({
         currentNote: {
             title: "",
             creationDate: "",
+            lastEditDate: "", // Добавлено поле для временного штампа редактирования
             description: "",
             deadline: "",
             isPlanned: true,
@@ -23,6 +24,7 @@ let app = new Vue({
                 this.notes.push({
                     title: this.currentNote.title,
                     creationDate: formattedDate,
+                    lastEditDate: "", // Пустое значение при создании
                     description: this.currentNote.description,
                     deadline: this.currentNote.deadline,
                     isPlanned: true,
@@ -31,9 +33,11 @@ let app = new Vue({
                     isDone: false,
                 });
             } else {
-                this.notes[this.editingIndex].title = this.currentNote.title;
-                this.notes[this.editingIndex].description = this.currentNote.description;
-                this.notes[this.editingIndex].deadline = this.currentNote.deadline;
+                let editedNote = this.notes[this.editingIndex];
+                editedNote.title = this.currentNote.title;
+                editedNote.description = this.currentNote.description;
+                editedNote.deadline = this.currentNote.deadline;
+                editedNote.lastEditDate = formattedDate; // Обновление временного штампа при редактировании
                 this.editingIndex = -1;
             }
 
@@ -44,6 +48,7 @@ let app = new Vue({
             this.currentNote = {
                 title: note.title,
                 creationDate: note.creationDate,
+                lastEditDate: note.lastEditDate,
                 description: note.description,
                 deadline: note.deadline,
                 isPlanned: note.isPlanned,
@@ -53,7 +58,7 @@ let app = new Vue({
             };
         },
         saveEdit: function () {
-            this.addNote(); // Используем тот же метод, что и при добавлении, для сохранения изменений
+            this.addNote();
         },
         cancelEdit: function () {
             this.editingIndex = -1;
@@ -73,6 +78,7 @@ let app = new Vue({
             this.currentNote = {
                 title: "",
                 creationDate: "",
+                lastEditDate: "",
                 description: "",
                 deadline: "",
                 isPlanned: true,

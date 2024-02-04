@@ -31,6 +31,7 @@
                         <p>{{note.title}} {{note.creationDate}}</p>
                         <p>{{note.description}}</p>
                         <p>Дедлайн: {{note.deadline}}</p>
+                        <p v-if="note.lastEditDate">Последнее изменение: {{note.lastEditDate}}</p>
                         <button @click="(note.isProcess = true) && (note.isPlanned = false)">=></button>
                         <button @click="deleteNote(note.title)">x</button>
                         <button @click="editNote(note)">Редактировать</button>
@@ -45,6 +46,7 @@
                         <p>{{note.title}} {{note.creationDate}}</p>
                         <p>{{note.description}}</p>
                         <p>Дедлайн: {{note.deadline}}</p>
+                        <p v-if="note.lastEditDate">Последнее изменение: {{note.lastEditDate}}</p>
                         <button @click="(note.isPlanned = true) && (note.isProcess = false)"><=</button>
                         <button @click="(note.isTested = true) && (note.isProcess = false)">=></button>
                         <button @click="deleteNote(note.title)">x</button>
@@ -60,6 +62,7 @@
                         <p>{{note.title}} {{note.creationDate}}</p>
                         <p>{{note.description}}</p>
                         <p>Дедлайн: {{note.deadline}}</p>
+                        <p v-if="note.lastEditDate">Последнее изменение: {{note.lastEditDate}}</p>
                         <button @click="(note.isProcess = true) && (note.isTested = false)"><=</button>
                         <button @click="(note.isDone = true) && (note.isTested = false)">=></button>
                         <button @click="deleteNote(note.title)">x</button>
@@ -75,6 +78,7 @@
                         <p>{{note.title}} {{note.creationDate}}</p>
                         <p>{{note.description}}</p>
                         <p>Дедлайн: {{note.deadline}}</p>
+                        <p v-if="note.lastEditDate">Последнее изменение: {{note.lastEditDate}}</p>
                     </li>
                 </ul>
             </div>
